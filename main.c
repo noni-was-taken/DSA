@@ -1,11 +1,23 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<stdbool.h>
-#include "stack.h"
-#include "queue.h"
+#include "stackArr.h"
+#include "stackLL.h"
 
+#include "queueArr.h"
+#include "test.h"
 
+int main() {
+    StackPtr S = (StackPtr) malloc(sizeof(Stack));
+    QueuePtr Q = (QueuePtr) malloc(sizeof(Queue));
 
-int main(){
-    char data;
+    initStack(S);
+    initQueue(Q);
+
+    testStack(S);
+    testQueue(Q);
+
+    free(S);
+    free(Q);
+    return 0;
 }
