@@ -23,7 +23,6 @@ void push(StackPtr S, char data){
     if(!isFullStack(*S)){
         S->top++;
         S->elems[S->top] = data;
-        printf("\nS: Added Successfully");
     }
 }
 void pop(StackPtr S){

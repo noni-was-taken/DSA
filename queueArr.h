@@ -16,11 +16,11 @@ void initQueue(QueuePtr Q){
     Q->r = -1;
 }
 bool isFullQueue(Queue Q){
-    return ((Q.r+2)%MAX == Q.f) ? true : false;
+    return(Q.r+2)%MAX == Q.f;
 }
 
 bool isEmptyQueue(Queue Q){
-    return ((Q.r+1)%MAX == Q.f) ? true : false;
+    return (Q.r+1)%MAX == Q.f;
 }
 void enqueue(QueuePtr Q, char data){
     if(!isFullQueue(*Q)){   
@@ -40,7 +40,7 @@ void enqueueUnique(QueuePtr Q, char data){
     Queue temp;
     for(temp = *Q; !isEmptyQueue(temp) && front(temp) != data; dequeue(&temp)){}
     if(isEmptyQueue(temp)) enqueue(Q, data);
-    else printf("\nQ: Data is not unique");  
+    else printf("\nQ: Data is not unique");
 }
 void displayQueue(Queue Q){
     printf("\nQueue Contents:");

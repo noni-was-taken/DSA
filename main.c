@@ -2,9 +2,9 @@
 #include<stdlib.h>
 #include<stdbool.h>
 #include "stackArr.h"
-#include "stackLL.h"
-
-#include "queueArr.h"
+// #include "stackLL.h"
+// #include "queueArr.h"
+#include "queueLL.h"
 #include "test.h"
 
 int main() {
