@@ -92,9 +92,7 @@ int *shiftingSides(char trains[], unsigned char surfer){
         for(int j = 0, mask = 128; mask; j++, mask >>= 1){
             if((trains[i] & mask) == 0) path = 7 - j;
         }
-        
         returnValue[i] = curr - path;
-
         if(returnValue[i] >= 0){
             tempSurfer >>= returnValue[i];
         }else{
