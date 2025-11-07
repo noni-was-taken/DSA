@@ -32,13 +32,7 @@ int main(){
 void displayHeap(heap tree){
     int count = 0;
     for(int i = 0; i < max; i++){
-        for(int j = max-1; j >= i; j--){
-            printf(" ");
-        }
-        for(int j = 0; j < i && count < tree.count; j++){
-            printf("%d  ", tree.arr[count++]);
-        }
-        printf("\n");
+        printf("%d ", tree.arr[i]);
     }
 }
 
