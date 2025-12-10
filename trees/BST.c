@@ -37,88 +37,47 @@ void insert(BST* b, int data){
 
 void delete(BST* b, int data){
     //find data as root
-    NodePtr *newRoot;
-    for(newRoot = &b->head; *newRoot != NULL && (*newRoot)->data != data;){
-        if(data > (*newRoot)->data){
-            newRoot = &(*newRoot)->right;
+    NodePtr *subRoot;
+    for(subRoot = &b->head; *subRoot != NULL && (*subRoot)->data != data;){
+        if(data > (*subRoot)->data){
+            subRoot = &(*subRoot)->right;
         }else{
-            newRoot = &(*newRoot)->left;
+            subRoot = &(*subRoot)->left;
         }   
     }
-    if(*newRoot != NULL){
-        NodePtr toBeDeleted = *newRoot;
+    if(*subRoot != NULL){
+        NodePtr toBeDeleted = *subRoot;
         
         //parent has no child
-        if((*newRoot)->left == NULL && (*newRoot)->right == NULL){
-            *newRoot = NULL;
+        if((*subRoot)->left == NULL && (*subRoot)->right == NULL){
+            *subRoot = NULL;
         }
         
         //parent has only one child
-        else if((*newRoot)->left == NULL && (*newRoot)->right == NULL){
-            if((*newRoot)->left != NULL){
-                *newRoot = (*newRoot)->left;
+        else if((*subRoot)->left == NULL || (*subRoot)->right == NULL){
+            if((*subRoot)->left != NULL){
+                *subRoot = (*subRoot)->left;
             }else{
-                *newRoot = (*newRoot)->right;
+                *subRoot = (*subRoot)->right;
             }
         }
         
         //parent has 2 children
         else{
             //using successor
-            NodePtr *trav = &(*newRoot)->right;  
-            for(;(*trav)->left != NULL; trav = (*trav)->left);
-            NodePtr temp = *trav;
-            NodePtr tempRight = (*trav)->right;
-            temp->left = (*newRoot)->left;
-            temp->right = (*newRoot)->right;
-            *newRoot = temp;            
-            *trav = tempRight;
-        }
+            NodePtr *sp = &(*subRoot)->right;
+            for(;(*sp)->left != NULL; sp = &(*sp)->left);
 
-        free(toBeDeleted);
-    }
-}
+            NodePtr successor = *sp;
+            *sp = (*sp)->right;
 
-void delete(BST* b, int data){
-    NodePtr *newRoot;
-    for(newRoot = &b->head; *newRoot != NULL && (*newRoot)->data != data;){
-        if(data > (*newRoot)->data){
-            newRoot = &(*newRoot)->right;
-        }else{
-            newRoot = &(*newRoot)->left;
-        }   
-    }
-    if(*newRoot != NULL){
-        NodePtr toBeDeleted = *newRoot;
-        
-        // No children
-        if((*newRoot)->left == NULL && (*newRoot)->right == NULL){
-            *newRoot = NULL;
-        }
-        
-        // One child
-        else if((*newRoot)->left == NULL || (*newRoot)->right == NULL){
-            if((*newRoot)->left != NULL){
-                *newRoot = (*newRoot)->left;
-            }else{
-                *newRoot = (*newRoot)->right;
-            }
-        }
-        
-        // Two children
-        else{
-            NodePtr *successorParent = &(*newRoot)->right;
-            while((*successorParent)->left != NULL){
-                successorParent = &(*successorParent)->left;
-            }
-            NodePtr successor = *successorParent;
-            *successorParent = successor->right; // Remove successor from its position
+            successor->right = (*subRoot)->right; 
+            successor->left = (*subRoot)->left;
             
-            successor->left = (*newRoot)->left;
-            successor->right = (*newRoot)->right;
-            *newRoot = successor;
+            *subRoot = successor; 
         }
 
         free(toBeDeleted);
     }
 }
+
